@@ -1,0 +1,5 @@
+nginx_port: 80
+nginx_ssl: false
+nginx_host: "localhost"
+nginx_src: "~/ansible-2/nginx.j2"
+nginx_dest: "/etc/nginx/conf.d/default.conf"
