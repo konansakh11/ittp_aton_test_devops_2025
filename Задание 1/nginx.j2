@@ -1,0 +1,14 @@
+server {
+    listen {{ nginx_port }} {% if nginx_ssl %}ssl{% endif %};
+
+    {% if nginx_ssl %}
+    ssl_certificate {{ ssl_cert }};
+    ssl_certificate_key {{ ssl_key }};
+    ssl_protocols TLSv1.2 TLSv1.3;
+    {% endif %}
+
+    location / {
+        root /var/www/html;
+        index index.html;
+    }
+}
