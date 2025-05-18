@@ -8,4 +8,4 @@ services:
       - ./html:/usr/share/nginx/html
     restart: on-failure
     ports:
-      - "4443:443"
+      - "443:443"
