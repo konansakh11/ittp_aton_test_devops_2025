@@ -1,0 +1,34 @@
+- name: Установка, конфигурация, запуск и проверка nginx
+  hosts: webservers
+  become: yes
+  vars_files:
+    - nginx_ssl_off.yaml
+  tasks:
+    - name: Установка nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: Конфигурация nginx
+      template:
+        src: "{{ nginx_src }}"
+        dest: "{{ nginx_dest }}"
+
+    - name: Запуск nginx
+      service:
+        name: nginx
+        state: started
+
+    - name: Проверка 443 порта
+      uri:
+        url: "https://{{ nginx_host }}"
+        status_code: 200
+        timeout: 5
+      ignore_errors: yes
+
+    - name: Проверка 80 порта
+      uri:
+        url: "http://{{ nginx_host }}"
+        status_code: 200
+        timeout: 5
+      ignore_errors: yes
